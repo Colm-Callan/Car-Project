@@ -1,0 +1,16 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+</head>
+
+{% include 'navbar.html' %}
+{% include 'header.html' %}
+<div class="page-container">
+    <div class="content-wrap">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+{% include 'footer.html' %}

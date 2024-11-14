@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Thanks - Carz4Sale
+{% endblock %}
+{% block content %}
+<div>
+    <div class="">
+        <br>
+        <br>
+        <h1 class="homepage_title">
+            Thanks for placing your order
+        </h1>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class=" homepage_title">
+            <p>Your order number is: <b>{{ customer_order.id }}</b></p>
+            <br>
+            <br>
+            <p>
+                We have received your order and will begin processing right
+                away. For your records, an email confirmation has been sent to you. It contains details of the items you
+                purchased.
+            </p>
+<br>
+            <div>
+                <button class="btn"><a class="btn_text" href="{% url 'shop:all_products' %}">Continue Shopping</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

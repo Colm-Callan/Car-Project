@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+This is the shopping cart page. Proceed to review your items and place the order.
+{% endblock %}
+{% block title %}
+Cart - Carz4Sale
+{% endblock %}
+{% block content %}
+{% if not cart_items %}
+<div>
+    <div>
+        <br>
+        <h1 class="homepage_title">
+            Your shopping cart is empty
+        </h1>
+        <br>
+        <p class="homepage_title">
+            Please click <a href="{% url 'home' %}">here</a> to continue shopping.
+        </p>
+    </div>
+</div>
+{% else %}
+<div>
+    <div>
+        <br>
+        <h1 class="homepage_title">
+            Your shopping cart
+        </h1>
+        <hr>
+        <br>
+    </div>
+</div>
+<div class="text_margin">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        Your items
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart_item in cart_items %}
+                <tr>
+                    <td>
+                        <a href="{{cart_item.product.get_absolute_url}}"><img class="cart_image"
+                                src="{{cart_item.product.image.url}}" alt=""></a>
+                    </td>
+                    <div class="text_margin">
+                        <td>
+                            {{cart_item.product.name}}
+                            <br>
+                            <button class="btn"><a href="{% url 'cart:add_cart' cart_item.product_id %}"
+                                    class="btn_text">+</a></button> <button class="btn"><a
+                                    href="{% url 'cart:cart_remove' cart_item.product_id %}"
+                                    class="btn_text">-</a></button>
+                            <br>
+                            Unit Price: €{{cart_item.sub_total}}
+                            <br>
+                            Qty: {{cart_item.quantity}} x €{{cart_item.product.price}}
+                        </td>
+                    </div>
+                    <td>
+                        <br>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                <br>
+                <tr>
+                    <td colspan="3">
+                        <button class="btn"><a href="{% url 'cart:full_remove' cart_items.0.product_id %}"
+                                class="btn_text">empty
+                                cart</a></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Checkout
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Please review your shopping cart items before proceeding with the order payment.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Your total is: <strong>€{{ total }}</strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ data_key }}"
+                data-amount="{{ stripe_total }}" data-name="Carz4Sale" data-description="{{ description }}"
+                data-image="{% static 'images/Carz4Sale_Logo.png' %}" data-locale="auto" data-currency="eur"
+                data-shipping-address="true" data-billing-address="true" data-zip-code="true">
+                </script>
+
+        </form>
+        <div>
+            <button class="btn"><a class="btn_text" href="{% url 'shop:all_products' %}">Continue Shopping</a></button>
+        </div>
+    </div>
+</div>
+<br>
+{% endif %}
+{% endblock %}

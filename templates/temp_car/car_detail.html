@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Car Detail</title>
+    </head>
+    <body>
+        <p><a href="{% url 'car_list' %}"> Return to car list</a></p>
+        <h1>Car Details</h1>
+        <p>Name: {{ product.name }}</p>
+        <p>Description: {{ product.description }}</p>
+        <p>Category: {{ product.category }}</p>
+        <p>Price: €{{ product.price }}</p>
+        <p>Image: {{ product.image }}</p>
+        <p>Stock: {{ product.stock }}</p>
+        <p>Available: {{ product.available }}</p>
+        <p>Created: {{ product.created }}</p>
+        <p>Updated: {{ product.updated }}</p>
+        <!-- <a href="{% url 'cart:add_cart' cars.model %}">Add to Cart</a> -->
+        <br>
+        <p><a href="{% url 'add_comment' product.pk%}">+Add Comment</a></p>
+        <div>
+            <h3>Comment Section</h3>
+            {% for comment in car.comments.all %}
+                <p>
+                    <p><span>Posted by: {{ comment.author }}</span></p>
+                    {{ comment }}
+                </p>
+            {% endfor %}
+        </div>
+       
+        {% if user.is_superuser %}
+        <p><a href="{% url 'car_delete' product.pk %}"> -Remove</a></p>
+        {% endif %}
+    </body>
+</html>
+{% endblock content %}

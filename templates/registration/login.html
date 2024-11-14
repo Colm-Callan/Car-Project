@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Log In</title>
+    </head>
+    <body>
+        <div class="not_auth_body2">
+            <h2>Log In</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </body>
+</html>
+{% endblock content %}

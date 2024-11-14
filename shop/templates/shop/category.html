@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+{% if category %}
+{{ category.description|truncatewords:155 }}
+{% else %}
+{% endif %}
+{% endblock %}
+{% block title %}
+{% if category %}
+{{ category.name }} - Carz4Sale
+{% else %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<!--Breadcrumb navigation-->
+<!-- {% if category %}
+<div>
+    <div>
+        <p><a href="{% url 'shop:all_products' %}">Our Products</a> | {{category.name}}</p>
+    </div>
+</div>
+{% endif %}
+<div>
+    {% if category %}
+    <img src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+<br>
+<div>
+    <h1>{{category.name}}</h1>
+    <p>{{category.description}}</p>
+</div>
+</div>
+<br>
+{% endif %} -->
+<div class="text_margin">
+    <h1 class="homepage_title">Our Products</h1>
+    <p class="homepage_title">Finding the best car for with the best deal has never been easier than on Carz4Sale!</p>
+    {% if user.is_superuser %}
+    <hr>
+    <h3>Staff Options</h3>
+    <button class="btn"><a class="btn_text" href="{% url 'shop:car_create' %}">+add car</a></button>
+    <hr>
+    {% endif %}
+    <br>
+    <div class="container">
+        <div class="row mx-auto">
+            {% for product in prods %}
+            <div class="col-md-4 my_bottom_margin">
+                <div class="card" style="min-width:18rem;">
+                    <a class="img" href="{{product.get_absolute_url}}"><img class="card-img-top
+     my_image" src="{{ product.image.url }}" alt="{{product.name}}"></a>
+                    <div class="card-body">
+
+                        <h4><a class="link_decoration" href="{{product.get_absolute_url}}">{{product.name}}</a></h4>
+                        <p>€{{product.price}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="mx-auto">
+            {% if prods.paginator.num_pages > 1 %}
+            <br>
+            <div class="homepage_title">
+                {% for pg in prods.paginator.page_range %}
+                <button class="btn"><a href="?page={{pg}}" class="btn_text {%
+        if products.number == pg %}active{% endif
+        %}">{{pg}}</a></button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock %}

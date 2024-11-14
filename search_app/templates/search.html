@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+{% endblock %}
+{% block title %}
+Search - Cars4Sale
+{% endblock %}
+{% block content %}
+<div class="text_margin">
+    <h2>You have searched for: <b>"{{ query }}"</b></h2>
+</div>
+<div>
+    <div>
+        {% for product in product_list %}
+        <div>
+            <div  style="min-width: 18rem;">
+                <a href="{{product.get_absolute_url}}"><img class="card-img-top" src="{{product.image.url}}"
+                        alt="{{product.name}}"></a>
+                <div class="card-body">
+                    <h4><a class="link_decoration" href="{{product.get_absolute_url}}">{{product.name}}</a></h4>
+                    <p>€{{product.price}}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row mx-auto">
+            <p>0 results found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

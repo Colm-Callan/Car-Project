@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="homepage_body">
+    <h1 class="homepage_title">Welcome to Carz4Sale</h1>
+
+    <img class='homepage_img ' src="{% static 'images/Carz4Sale_logo.png' %}" alt="Insert image header html">
+    <br>
+    <h3>Hi {{user.username }}</h3>
+    <p>We offer a wide range of cars for purchase.</p>
+    <p>We hope you find the perfect car for your needs</p>
+    <p>Browse our many products and find the car you love by clicking <a href="{% url 'shop:all_products' %}"> here</a>
+    </p>
+    <br>
+    <br>
+    {% else %}
+    <br>
+    <div class="not_auth_background">
+        <div class="not_auth_body">
+            <h3>You are not logged in </h3>
+
+            <p>Please Login or Signup for free.</p>
+            <br>
+            <a class="btn_text" href="{% url 'login' %}">Log In</a>
+            |
+            <a class="btn_text" href="{% url 'signup' %}">Sign up</a>
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock content %}

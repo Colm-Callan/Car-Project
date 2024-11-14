@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="navbar">
+    <a href="{% url 'home' %}"> <img class='navbar-logo' src="{% static 'images/Carz4Sale_Logo.png' %}"
+            alt="Insert image header html"></a>
+    <a class="navbar_text" href="{% url 'shop:all_products' %}">Cars For Sale</a>
+    <a class="navbar_text" href="{% url 'cart:cart_detail' %}">Cart</a>
+    <form class="navbar_searchbar" action="{% url 'search_app:searchResult' %}" method="get">
+        <input type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn"  type="submit">Search</button>
+    </form>
+    <div class="dropdown navbar_text">
+        <button class="dropbtn">Account
+            <i class=""></i>
+        </button>
+        <div class="dropdown-content">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Log Out</a>
+            {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'signup' %}">Sign up</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags%}
+{% block content %}
+<div>
+    <p>Post about: {{ product.name }}</p>
+    <p>logged in as: {{ user.username }}</p>
+    <p>{{ comment.comment }}</p>
+</div>
+<h1>New Comment:</h1>
+<form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Post</button>
+</form>
+{% endblock content %}
